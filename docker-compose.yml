@@ -1,0 +1,34 @@
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mern-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: employees
+    volumes:
+      - mongo-data:/data/db
+
+  server:
+    build: ./server
+    container_name: mern-server
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/employees"
+    depends_on:
+      - mongo
+
+  client:
+    build: ./client
+    container_name: mern-client
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+
+volumes:
+  mongo-data:
