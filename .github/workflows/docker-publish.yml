@@ -23,8 +23,8 @@ jobs:
 
       # 3. Build the Docker image
       - name: Build server Docker image
-        run: docker build -t ana003m/mern-server:latest ./server
+        run: docker build -t anamanasieva/mern-server:latest ./server
 
       # 4. Push the Docker image to DockerHub
       - name: Push server Docker image
-        run: docker push ana003m/mern-server:latest
+        run: docker push anamanasieva/mern-server:latest
