@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mern-server-deployment
+  namespace: mern-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mern-server
+  template:
+    metadata:
+      labels:
+        app: mern-server
+    spec:
+      containers:
+        - name: mern-server
+          image: anamanasieva/mern-server:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: mern-config
+                  key: MONGO_URI
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mern-secret
+                  key: SECRET_KEY
